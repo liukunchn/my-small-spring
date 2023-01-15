@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+
+    <bean class="com.maoyou.springframework.aop.framework.autoproxy.AspectJAwareAdvisorAutoProxyCreator">
+<!--        <property name="proxyTargetClass" value="true"/>-->
+    </bean>
+
+
+    <bean id="userService" class="com.maoyou.aop.UserServiceImpl"/>
+
+    <bean id="methodInterceptor1" class="com.maoyou.aop.FirstMethodInterceptor"/>
+    <bean id="methodInterceptor2" class="com.maoyou.aop.SecondMethodInterceptor"/>
+    <bean id="pointcut1" class="com.maoyou.springframework.aop.aspectj.AspectJExpressionPointcut">
+        <property name="expression" value="execution(* com.maoyou.aop.**.*(..))"/>
+    </bean>
+    <bean id="pointcut2" class="com.maoyou.springframework.aop.aspectj.AspectJExpressionPointcut">
+        <property name="expression" value="execution(* com.maoyou.aop.**.*(..))"/>
+    </bean>
+    <bean id="pointcutAdvisor1" class="com.maoyou.springframework.aop.support.DefaultBeanFactoryPointcutAdvisor">
+        <property name="pointcut" ref="pointcut1"/>
+        <property name="advice" ref="methodInterceptor1"/>
+    </bean>
+    <bean id="pointcutAdvisor2" class="com.maoyou.springframework.aop.support.DefaultBeanFactoryPointcutAdvisor">
+        <property name="pointcut" ref="pointcut2"/>
+        <property name="advice" ref="methodInterceptor2"/>
+    </bean>
+
+
+</beans>

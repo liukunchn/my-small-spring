@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <bean id="stringToDateConverter" class="com.maoyou.conversionservice.StringToDateConverter"/>
+    <bean id="conversionService" class="com.maoyou.springframework.context.support.ConversionServiceFactoryBean">
+        <property name="converters">
+            <set>
+                <ref bean="stringToDateConverter"/>
+            </set>
+        </property>
+    </bean>
+    <bean id="dataSource" class="com.maoyou.conversionservice.DataSource">
+        <property name="url" value="${dataSource.url}"/>
+        <property name="username" value="${dataSource.username}"/>
+        <property name="password" value="${dataSource.password}"/>
+        <property name="driver" value="${dataSource.driver}"/>
+        <property name="integer" value="123"/>
+        <property name="bool" value="true"/>
+        <property name="date" value="2011-10-10"/>
+        <property name="ints">
+            <set>
+                <value>1</value>
+                <value>2</value>
+            </set>
+        </property>
+    </bean>
+</beans>
